@@ -45,8 +45,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         map = googleMap;
 
         // Ponto inicial (Lisboa). muda se quiseres
-        LatLng lisboa = new LatLng(38.7223, -9.1393);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(lisboa, 13f));
+        LatLng lisboa = new LatLng(38.01577, -7.875039);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(lisboa, 15f));
 
         fetchParkings(lisboa.latitude, lisboa.longitude);
     }
@@ -55,7 +55,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         // Overpass QL: buscar amenity=parking num raio de 2000m
         String q =
                 "[out:json];" +
-                        "node[amenity=parking](around:2000," + lat + "," + lon + ");" +
+                        "node[amenity=parking](around:10000," + lat + "," + lon + ");" +
                         "out;";
 
         OverpassService.api().query(q).enqueue(new Callback<OverpassResponse>() {

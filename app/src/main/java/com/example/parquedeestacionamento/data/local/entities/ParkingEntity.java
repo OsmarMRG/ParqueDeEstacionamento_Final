@@ -1,10 +1,10 @@
-package com.example.parquedeestacionamento.data.local;
+package com.example.parquedeestacionamento.data.local.entities;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "parking_records")
+@Entity(tableName = "parking")
 public class ParkingEntity {
 
     @PrimaryKey(autoGenerate = true)
@@ -13,8 +13,8 @@ public class ParkingEntity {
     @NonNull
     public String plate;
 
-    public long entryTime;     // millis
-    public Long exitTime;      // null se ainda dentro
+    public long entryTime;
+    public Long exitTime;
     public boolean isInside;
 
     public ParkingEntity(@NonNull String plate, long entryTime) {

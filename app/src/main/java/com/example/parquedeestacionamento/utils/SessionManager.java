@@ -5,8 +5,9 @@ import android.content.SharedPreferences;
 
 public class SessionManager {
 
-    private static final String PREF = "session_pref";
-    private static final String KEY_USER = "logged_user";
+    private static final String PREF = "pax_session";
+    private static final String KEY_LOGGED = "logged";
+    private static final String KEY_USER = "user";
 
     private final SharedPreferences sp;
 
@@ -14,15 +15,22 @@ public class SessionManager {
         sp = ctx.getSharedPreferences(PREF, Context.MODE_PRIVATE);
     }
 
-    public void setLoggedUser(String username) {
-        sp.edit().putString(KEY_USER, username).apply();
+    public void login(String username) {
+        sp.edit()
+                .putBoolean(KEY_LOGGED, true)
+                .putString(KEY_USER, username)
+                .apply();
     }
 
-    public String getLoggedUser() {
-        return sp.getString(KEY_USER, null);
+    public boolean isLoggedIn() {
+        return sp.getBoolean(KEY_LOGGED, false);
+    }
+
+    public String getUser() {
+        return sp.getString(KEY_USER, "");
     }
 
     public void logout() {
-        sp.edit().remove(KEY_USER).apply();
+        sp.edit().clear().apply();
     }
 }

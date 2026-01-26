@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.parquedeestacionamento.R;
-import com.example.parquedeestacionamento.data.local.ParkingEntity;
+import com.example.parquedeestacionamento.data.local.entities.ParkingEntity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

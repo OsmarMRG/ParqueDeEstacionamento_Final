@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.parquedeestacionamento.R;
 import com.example.parquedeestacionamento.adapters.ParkingAdapter;
-import com.example.parquedeestacionamento.data.local.AppDatabase;
+import com.example.parquedeestacionamento.data.local.db.AppDatabase;
 import com.example.parquedeestacionamento.utils.AppExecutors;
 
 public class ParkingListFragment extends Fragment {

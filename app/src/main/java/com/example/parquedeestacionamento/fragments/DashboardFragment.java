@@ -14,8 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.parquedeestacionamento.R;
-import com.example.parquedeestacionamento.data.local.AppDatabase;
-import com.example.parquedeestacionamento.data.local.ParkingEntity;
+import com.example.parquedeestacionamento.data.local.db.AppDatabase;
+import com.example.parquedeestacionamento.data.local.entities.ParkingEntity;
 import com.example.parquedeestacionamento.utils.AppExecutors;
 
 public class DashboardFragment extends Fragment {

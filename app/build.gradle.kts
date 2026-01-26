@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
 }
@@ -13,6 +15,14 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val props = Properties()
+        val localPropsFile = rootProject.file("local.properties")
+        if (localPropsFile.exists()) {
+            props.load(localPropsFile.inputStream())
+        }
+        val mapsKey = props.getProperty("AIzaSyCBq8BpVuSA_sGMuKKE1puKv9oIAbk4NHc", "")
+        manifestPlaceholders["AIzaSyCBq8BpVuSA_sGMuKKE1puKv9oIAbk4NHc"] = mapsKey
     }
 
     buildTypes {
@@ -60,4 +70,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    implementation("androidx.core:core-splashscreen:1.0.1")
+
 }
