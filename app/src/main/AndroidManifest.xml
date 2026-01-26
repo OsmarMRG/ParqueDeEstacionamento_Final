@@ -28,9 +28,8 @@
             android:theme="@style/Theme.ParqueDeEstacionamento.Main" />
 
         <activity
-            android:name=".activities.LoginPage"
-            android:exported="false">
-        </activity>
+            android:name=".activities.LoginActivity"
+            android:exported="false" />
 
         <activity
             android:name=".activities.SplashActivity"
@@ -41,8 +40,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
 
     </application>
 

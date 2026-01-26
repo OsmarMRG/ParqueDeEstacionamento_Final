@@ -1,5 +1,48 @@
 <resources>
-    <string name="app_name">ParqueDeEstacionamento</string>
+    <string name="app_name">Gestão de Parques de Estacionamento</string>
+    <string name="app_version">v1.0</string>
 
+    <!-- Login -->
     <string name="logout">Logout</string>
+    <string name="login_subtitle">Faça login para continuar</string>
+    <string name="hint_username">Utilizador</string>
+    <string name="hint_password">Password</string>
+    <string name="show_password">Mostrar password</string>
+    <string name="btn_login">Entrar</string>
+    <string name="error_empty_fields">Preenche todos os campos</string>
+    <string name="error_invalid_credentials">Utilizador ou password errados</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_title">Dashboard</string>
+    <string name="vehicles_inside">Veículos no Parque</string>
+    <string name="inside_count">Dentro: %d</string>
+    <string name="hint_plate">Matrícula (ex: 00-AA-00)</string>
+    <string name="btn_entry">Registar</string>
+    <string name="btn_exit">Remover</string>
+    <string name="error_empty_plate">Escreve uma matrícula</string>
+    <string name="error_invalid_plate_format">Formato de matrícula inválido</string>
+    <string name="error_plate_already_inside">Essa matrícula já está dentro</string>
+    <string name="error_plate_not_inside">Essa matrícula não está dentro</string>
+    <string name="success_entry">Entrada registada</string>
+    <string name="success_exit">Saída registada</string>
+
+    <!-- Parking List -->
+    <string name="history_title">Histórico</string>
+    <string name="entry_time">Entrada: %s</string>
+    <string name="exit_time">Saída: %s</string>
+    <string name="still_inside">Ainda dentro</string>
+    <string name="parking_times">Entrada: %1$s | Saída: %2$s</string>
+    <string name="empty_parking_list">Sem registos de estacionamento</string>
+
+    <!-- Map -->
+    <string name="map_title">Mapa</string>
+    <string name="error_fetch_parkings">Falha a buscar parques</string>
+    <string name="error_network">Erro de rede ao buscar parques</string>
+    <string name="parkings_found">Parques encontrados: %d</string>
+    <string name="default_parking_name">Parque</string>
+
+    <!-- Navigation -->
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_history">Histórico</string>
+    <string name="nav_map">Mapa</string>
 </resources>
