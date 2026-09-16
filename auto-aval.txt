@@ -1,0 +1,36 @@
+Trabalho Prático — Gestão de Parques de Estacionamento
+
+Descrição da aplicação
+A aplicação permite gerir entradas e saídas de veículos num parque de estacionamento. O utilizador entra com as credenciais admin / 1234, vê o número de veículos no interior, regista entradas e saídas através da matrícula, consulta o histórico e visualiza parques próximos num mapa.
+
+Requisitos e auto-avaliação
+
+Req. 1 — Apreciação geral: 3,0 / 4,0
+A aplicação apresenta um fluxo simples e funcional: splash screen, login, dashboard, histórico, mapa e logout. A solução foi mantida pequena para facilitar a utilização e a explicação durante a defesa.
+
+Req. 2 — Interface com o utilizador: 3,0 / 4,0
+Foram utilizados layouts XML, Activities, Fragments, navegação inferior e RecyclerView para o histórico. A interface permite realizar todas as operações principais, embora tenha sido mantida simples.
+
+Req. 3 — WebService: 2,5 / 3,0
+Foi utilizado Retrofit para consultar a API Overpass do OpenStreetMap. A resposta é convertida para classes Java e os parques encontrados são mostrados como marcadores no mapa. Existe também tratamento simples de erro de rede.
+
+Req. 4 — Base de dados Room: 2,0 / 2,0
+A aplicação utiliza Room para guardar utilizadores e registos de estacionamento. São guardados a matrícula, a hora de entrada, a hora de saída e o estado atual do veículo.
+
+Req. 5 — Outras bibliotecas: 3,0 / 3,0
+Foram utilizadas bibliotecas adicionais, incluindo Google Maps, Retrofit, Gson, RecyclerView, Material Components e bibliotecas AndroidX.
+
+Req. 6 — Texto e auto-avaliação: 0,5 / 0,5
+Este ficheiro descreve a aplicação, as funcionalidades e a auto-avaliação de cada requisito.
+
+Req. 7 — Vídeo de apresentação: 0,5 / 0,5
+Será apresentado um vídeo curto com o login, o registo de entrada, o registo de saída, o histórico e o mapa.
+
+Total previsto: 16,5 / 20,0
+
+Credenciais para demonstração
+Utilizador: admin
+Password: 1234
+
+Contribuição
+Trabalho individual.

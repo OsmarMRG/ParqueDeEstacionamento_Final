@@ -25,6 +25,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.util.Locale;
+
 /**
  * Fragment que exibe mapa com parques de estacionamento públicos.
  * Utiliza a API Overpass (OpenStreetMap) para obter localizações.
@@ -87,7 +89,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             return;
 
         // Query Overpass QL para buscar parques de estacionamento
-        String query = String.format(
+        String query = String.format(Locale.US,
                 "[out:json];node[amenity=parking](around:%d,%f,%f);out;",
                 Constants.MAP_SEARCH_RADIUS_METERS,
                 latitude,

@@ -1,5 +1,3 @@
-import java.util.Properties
-
 plugins {
     id("com.android.application")
 }
@@ -16,13 +14,6 @@ android {
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        val props = Properties()
-        val localPropsFile = rootProject.file("local.properties")
-        if (localPropsFile.exists()) {
-            props.load(localPropsFile.inputStream())
-        }
-        val mapsKey = props.getProperty("AIzaSyCBq8BpVuSA_sGMuKKE1puKv9oIAbk4NHc", "")
-        manifestPlaceholders["AIzaSyCBq8BpVuSA_sGMuKKE1puKv9oIAbk4NHc"] = mapsKey
     }
 
     buildTypes {
@@ -48,6 +39,7 @@ dependencies {
     implementation(libs.constraintlayout)
 
     implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("androidx.cardview:cardview:1.0.0")
 
     implementation(libs.room.runtime)
     annotationProcessor(libs.room.compiler)
