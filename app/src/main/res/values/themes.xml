@@ -1,6 +1,6 @@
 <resources>
-    <!-- Tema simples baseado no AppCompat -->
-    <style name="Theme.ParqueDeEstacionamento" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <!-- Tema baseado no Material Components (necessário para BottomNavigationView) -->
+    <style name="Theme.ParqueDeEstacionamento" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>

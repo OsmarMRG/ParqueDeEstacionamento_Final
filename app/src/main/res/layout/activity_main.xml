@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/primary"
-        app:menu="@menu/top_menu" />
+        app:title="@string/app_name"
+        app:titleTextColor="@color/white" />
 
     <FrameLayout
         android:id="@+id/fragmentContainer"

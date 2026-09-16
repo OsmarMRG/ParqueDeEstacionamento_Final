@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Toolbar com botão de logout
         Toolbar toolbar = findViewById(R.id.topToolbar);
+        toolbar.inflateMenu(R.menu.top_menu);
         toolbar.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.action_logout) {
                 new SessionManager(this).logout();
