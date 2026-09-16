@@ -8,6 +8,7 @@
     <color name="surface">#FFFFFF</color>
     <color name="text_primary">#000000</color>
     <color name="text_secondary">#666666</color>
+    <color name="text_hint">#AAAAAA</color>
     <color name="status_inside">#4CAF50</color>
     <color name="status_outside">#9E9E9E</color>
 </resources>

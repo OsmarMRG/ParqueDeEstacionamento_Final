@@ -1,16 +1,11 @@
 <resources>
-    <!-- Tema simples baseado no Material3 -->
-    <style name="Theme.ParqueDeEstacionamento" parent="Theme.Material3.DayNight.NoActionBar">
+    <!-- Tema simples baseado no AppCompat -->
+    <style name="Theme.ParqueDeEstacionamento" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
         <item name="android:statusBarColor">@color/primary</item>
     </style>
 
     <style name="Theme.ParqueDeEstacionamento.Main" parent="Theme.ParqueDeEstacionamento" />
-
-    <style name="Theme.ParqueDeEstacionamento.Splash" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/primary</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/logoclaro</item>
-        <item name="postSplashScreenTheme">@style/Theme.ParqueDeEstacionamento</item>
-    </style>
 </resources>

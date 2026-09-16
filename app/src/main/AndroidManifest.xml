@@ -33,8 +33,7 @@
 
         <activity
             android:name=".activities.SplashActivity"
-            android:exported="true"
-            android:theme="@style/Theme.ParqueDeEstacionamento">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
