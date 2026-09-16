@@ -15,17 +15,12 @@ import com.example.parquedeestacionamento.fragments.ParkingListFragment;
 import com.example.parquedeestacionamento.utils.SessionManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-/**
- * Activity principal da aplicação.
- * Gere a navegação entre os três fragments principais: Dashboard, Lista e Mapa.
- */
+// Activity principal: gere os três fragmentos (Dashboard, Histórico, Mapa)
 public class MainActivity extends AppCompatActivity {
 
-    // Cache de fragments para evitar recriação desnecessária
     private final DashboardFragment dashboardFragment = new DashboardFragment();
     private final ParkingListFragment parkingListFragment = new ParkingListFragment();
     private final MapFragment mapFragment = new MapFragment();
-
     private Fragment currentFragment;
 
     @Override
@@ -33,88 +28,42 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setupToolbar();
-        setupBottomNavigation();
-
-        // Mostrar Dashboard por defeito
-        if (savedInstanceState == null) {
-            showFragment(dashboardFragment);
-        }
-    }
-
-    /**
-     * Configura a toolbar com o menu de logout.
-     */
-    private void setupToolbar() {
+        // Toolbar com botão de logout
         Toolbar toolbar = findViewById(R.id.topToolbar);
         toolbar.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.action_logout) {
-                performLogout();
+                new SessionManager(this).logout();
+                Intent intent = new Intent(this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
                 return true;
             }
             return false;
         });
-    }
 
-    /**
-     * Configura a navegação inferior.
-     */
-    private void setupBottomNavigation() {
+        // Navegação inferior entre fragmentos
         BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
-
         bottomNav.setOnItemSelectedListener(item -> {
-            int itemId = item.getItemId();
-
-            if (itemId == R.id.nav_dashboard) {
-                showFragment(dashboardFragment);
-            } else if (itemId == R.id.nav_list) {
-                showFragment(parkingListFragment);
-            } else if (itemId == R.id.nav_map) {
-                showFragment(mapFragment);
-            }
-
+            int id = item.getItemId();
+            if (id == R.id.nav_dashboard) showFragment(dashboardFragment);
+            else if (id == R.id.nav_list) showFragment(parkingListFragment);
+            else if (id == R.id.nav_map) showFragment(mapFragment);
             return true;
         });
+
+        // Mostrar dashboard por defeito
+        if (savedInstanceState == null) showFragment(dashboardFragment);
     }
 
-    /**
-     * Mostra um fragment no container principal.
-     * Usa hide/show para preservar estado dos fragments.
-     *
-     * @param fragment Fragment a mostrar
-     */
+    // Mostra um fragmento, escondendo o anterior
     private void showFragment(@NonNull Fragment fragment) {
-        if (currentFragment == fragment) {
-            return; // Já está visível
-        }
-
+        if (currentFragment == fragment) return;
         var transaction = getSupportFragmentManager().beginTransaction();
-
-        // Esconder fragment atual se existir
-        if (currentFragment != null) {
-            transaction.hide(currentFragment);
-        }
-
-        // Adicionar ou mostrar o novo fragment
-        if (!fragment.isAdded()) {
-            transaction.add(R.id.fragmentContainer, fragment);
-        } else {
-            transaction.show(fragment);
-        }
-
+        if (currentFragment != null) transaction.hide(currentFragment);
+        if (!fragment.isAdded()) transaction.add(R.id.fragmentContainer, fragment);
+        else transaction.show(fragment);
         transaction.commit();
         currentFragment = fragment;
-    }
-
-    /**
-     * Executa o logout do utilizador e redireciona para o login.
-     */
-    private void performLogout() {
-        new SessionManager(this).logout();
-
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        finish();
     }
 }

@@ -12,37 +12,16 @@ import com.example.parquedeestacionamento.data.local.dao.UserDao;
 import com.example.parquedeestacionamento.data.local.entities.ParkingEntity;
 import com.example.parquedeestacionamento.data.local.entities.UserEntity;
 
-/**
- * Base de dados Room da aplicação.
- * Implementa singleton pattern para garantir uma única instância.
- */
+// Base de dados Room com as tabelas de utilizadores e estacionamento
 @Database(entities = { UserEntity.class, ParkingEntity.class }, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
-    private static final String DATABASE_NAME = "parking_database";
     private static volatile AppDatabase INSTANCE;
 
-    /**
-     * Obtém o DAO de utilizadores.
-     *
-     * @return DAO para operações com utilizadores
-     */
     public abstract UserDao userDao();
-
-    /**
-     * Obtém o DAO de estacionamento.
-     *
-     * @return DAO para operações com registos de estacionamento
-     */
     public abstract ParkingDao parkingDao();
 
-    /**
-     * Obtém a instância única da base de dados.
-     * Utiliza double-checked locking para thread safety.
-     *
-     * @param context Contexto da aplicação
-     * @return Instância única da base de dados
-     */
+    // Singleton: devolve a única instância da base de dados
     @NonNull
     public static AppDatabase getInstance(@NonNull Context context) {
         if (INSTANCE == null) {
@@ -51,7 +30,7 @@ public abstract class AppDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(
                             context.getApplicationContext(),
                             AppDatabase.class,
-                            DATABASE_NAME)
+                            "parking_database")
                             .fallbackToDestructiveMigration()
                             .build();
                 }

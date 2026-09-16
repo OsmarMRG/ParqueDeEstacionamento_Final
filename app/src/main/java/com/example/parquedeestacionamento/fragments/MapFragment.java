@@ -21,16 +21,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import java.util.Locale;
-
-/**
- * Fragment que exibe mapa com parques de estacionamento públicos.
- * Utiliza a API Overpass (OpenStreetMap) para obter localizações.
- */
+// Mapa: mostra parques de estacionamento próximos usando a API Overpass do OpenStreetMap
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap googleMap;
@@ -38,27 +35,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-            @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_map, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initializeMap();
-    }
-
-    /**
-     * Inicializa o fragment do mapa.
-     */
-    private void initializeMap() {
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-
-        if (mapFragment != null) {
-            mapFragment.getMapAsync(this);
-        }
+        if (mapFragment != null) mapFragment.getMapAsync(this);
     }
 
     @Override
@@ -66,109 +51,55 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         googleMap = map;
         isMapReady = true;
 
-        // Centrar no ponto padrão
-        LatLng defaultLocation = new LatLng(
-                Constants.MAP_DEFAULT_LATITUDE,
-                Constants.MAP_DEFAULT_LONGITUDE);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                defaultLocation,
-                Constants.MAP_DEFAULT_ZOOM));
-
-        // Carregar parques de estacionamento
-        fetchNearbyParkings(defaultLocation.latitude, defaultLocation.longitude);
+        // Centrar no Beja e procurar parques próximos
+        LatLng location = new LatLng(Constants.MAP_DEFAULT_LATITUDE, Constants.MAP_DEFAULT_LONGITUDE);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, Constants.MAP_DEFAULT_ZOOM));
+        fetchParkings(location.latitude, location.longitude);
     }
 
-    /**
-     * Busca parques de estacionamento próximos via API Overpass.
-     *
-     * @param latitude  Latitude central da busca
-     * @param longitude Longitude central da busca
-     */
-    private void fetchNearbyParkings(double latitude, double longitude) {
-        if (!isMapReady || googleMap == null)
-            return;
-
-        // Query Overpass QL para buscar parques de estacionamento
+    // Query Overpass para obter parques de estacionamento numa área
+    private void fetchParkings(double lat, double lon) {
         String query = String.format(Locale.US,
                 "[out:json];node[amenity=parking](around:%d,%f,%f);out;",
-                Constants.MAP_SEARCH_RADIUS_METERS,
-                latitude,
-                longitude);
+                Constants.MAP_SEARCH_RADIUS_METERS, lat, lon);
 
         OverpassService.api().query(query).enqueue(new Callback<OverpassResponse>() {
             @Override
-            public void onResponse(@NonNull Call<OverpassResponse> call,
-                    @NonNull Response<OverpassResponse> response) {
-                if (!isAdded())
-                    return; // Fragment já não está attached
-
-                if (!response.isSuccessful() || response.body() == null) {
-                    showToast(R.string.error_fetch_parkings);
-                    return;
-                }
-
-                displayParkingMarkers(response.body());
+            public void onResponse(@NonNull Call<OverpassResponse> call, @NonNull Response<OverpassResponse> response) {
+                if (!isAdded() || !response.isSuccessful() || response.body() == null) return;
+                showMarkers(response.body());
             }
 
             @Override
-            public void onFailure(@NonNull Call<OverpassResponse> call,
-                    @NonNull Throwable throwable) {
-                if (isAdded()) {
-                    showToast(R.string.error_network);
-                }
+            public void onFailure(@NonNull Call<OverpassResponse> call, @NonNull Throwable t) {
+                if (isAdded()) toast(R.string.error_network);
             }
         });
     }
 
-    /**
-     * Adiciona marcadores no mapa para cada parque encontrado.
-     *
-     * @param response Resposta da API Overpass
-     */
-    private void displayParkingMarkers(@NonNull OverpassResponse response) {
-        if (googleMap == null || response.elements == null)
-            return;
+    // Adiciona marcadores no mapa para cada parque encontrado
+    private void showMarkers(@NonNull OverpassResponse response) {
+        if (googleMap == null || response.elements == null) return;
 
         int count = 0;
         String defaultName = getString(R.string.default_parking_name);
 
-        for (OverpassResponse.Element element : response.elements) {
-            LatLng position = new LatLng(element.lat, element.lon);
-
-            // Obter nome do parque ou usar nome padrão
-            String name = (element.tags != null && element.tags.get("name") != null)
-                    ? element.tags.get("name")
-                    : defaultName;
-
-            googleMap.addMarker(new MarkerOptions()
-                    .position(position)
-                    .title(name));
-
-            count++;
-
-            // Limitar número de marcadores por performance
-            if (count >= Constants.MAP_MAX_MARKERS)
-                break;
+        for (OverpassResponse.Element e : response.elements) {
+            String name = (e.tags != null && e.tags.get("name") != null) ? e.tags.get("name") : defaultName;
+            googleMap.addMarker(new MarkerOptions().position(new LatLng(e.lat, e.lon)).title(name));
+            if (++count >= Constants.MAP_MAX_MARKERS) break;
         }
 
-        showToast(getString(R.string.parkings_found, count));
+        toast(getString(R.string.parkings_found, count));
     }
 
-    /**
-     * Mostra mensagem Toast de forma segura.
-     */
-    private void showToast(int messageResId) {
-        if (isAdded() && getContext() != null) {
-            Toast.makeText(getContext(), messageResId, Toast.LENGTH_SHORT).show();
-        }
+    private void toast(String msg) {
+        if (isAdded() && getContext() != null)
+            Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
-    /**
-     * Mostra mensagem Toast de forma segura.
-     */
-    private void showToast(@NonNull String message) {
-        if (isAdded() && getContext() != null) {
-            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-        }
+    private void toast(int resId) {
+        if (isAdded() && getContext() != null)
+            Toast.makeText(getContext(), resId, Toast.LENGTH_SHORT).show();
     }
 }

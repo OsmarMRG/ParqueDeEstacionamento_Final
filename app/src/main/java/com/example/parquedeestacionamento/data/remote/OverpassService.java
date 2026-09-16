@@ -5,25 +5,14 @@ import androidx.annotation.NonNull;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Service para acesso à API Overpass.
- * Implementa singleton pattern para reutilizar a instância Retrofit.
- */
+// Cria e devolve a instância do Retrofit para a API Overpass
 public final class OverpassService {
 
     private static final String BASE_URL = "https://overpass-api.de/api/";
     private static volatile OverpassApi INSTANCE;
 
-    private OverpassService() {
-        // Construtor privado para prevenir instanciação
-    }
+    private OverpassService() {}
 
-    /**
-     * Obtém a instância da API Overpass.
-     * Utiliza double-checked locking para thread safety.
-     *
-     * @return Instância configurada da OverpassApi
-     */
     @NonNull
     public static OverpassApi api() {
         if (INSTANCE == null) {

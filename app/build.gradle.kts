@@ -13,7 +13,6 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
@@ -39,29 +38,23 @@ dependencies {
     implementation(libs.constraintlayout)
 
     implementation("androidx.recyclerview:recyclerview:1.3.2")
-    implementation("androidx.cardview:cardview:1.0.0")
 
+    // Room: base de dados local
     implementation(libs.room.runtime)
     annotationProcessor(libs.room.compiler)
 
+    // Retrofit: para a API Overpass do OpenStreetMap
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
 
-    implementation(libs.lifecycle.viewmodel)
-    implementation(libs.lifecycle.livedata)
-
-    implementation(libs.navigation.fragment)
-    implementation(libs.navigation.ui)
-
+    // Google Maps
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.google.android.gms:play-services-location:21.3.0")
 
-
+    // Splash screen
+    implementation("androidx.core:core-splashscreen:1.0.1")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
-    implementation("androidx.core:core-splashscreen:1.0.1")
-
 }

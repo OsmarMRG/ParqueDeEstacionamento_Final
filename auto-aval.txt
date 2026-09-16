@@ -6,13 +6,13 @@ A aplicação permite gerir entradas e saídas de veículos num parque de estaci
 Requisitos e auto-avaliação
 
 Req. 1 — Apreciação geral: 3,0 / 4,0
-A aplicação apresenta um fluxo simples e funcional: splash screen, login, dashboard, histórico, mapa e logout. A solução foi mantida pequena para facilitar a utilização e a explicação durante a defesa.
+A aplicação tem um fluxo simples e funcional: splash screen, login, dashboard, histórico, mapa e logout. A solução foi mantida simples para facilitar a explicação durante a defesa.
 
 Req. 2 — Interface com o utilizador: 3,0 / 4,0
-Foram utilizados layouts XML, Activities, Fragments, navegação inferior e RecyclerView para o histórico. A interface permite realizar todas as operações principais, embora tenha sido mantida simples.
+Foram utilizados layouts XML, Activities, Fragments, navegação inferior e RecyclerView para o histórico. A interface permite realizar todas as operações principais.
 
 Req. 3 — WebService: 2,5 / 3,0
-Foi utilizado Retrofit para consultar a API Overpass do OpenStreetMap. A resposta é convertida para classes Java e os parques encontrados são mostrados como marcadores no mapa. Existe também tratamento simples de erro de rede.
+Foi utilizado Retrofit para consultar a API Overpass do OpenStreetMap. A resposta é convertida para classes Java e os parques encontrados são mostrados como marcadores no mapa. Existe tratamento simples de erro de rede.
 
 Req. 4 — Base de dados Room: 2,0 / 2,0
 A aplicação utiliza Room para guardar utilizadores e registos de estacionamento. São guardados a matrícula, a hora de entrada, a hora de saída e o estado atual do veículo.
